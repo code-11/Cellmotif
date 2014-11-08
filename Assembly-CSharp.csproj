@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\EnemyAI.cs" />
      <Compile Include="Assets\absorbController.cs" />
      <Compile Include="Assets\movementController.cs" />
   </ItemGroup>
