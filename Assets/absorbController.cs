@@ -3,7 +3,7 @@ using System.Collections;
 
 public class absorbController : MonoBehaviour {
 
-//	public float m_radius =
+	public float m_radius = 5 ;
 
 	// Use this for initialization
 	void Start () {
