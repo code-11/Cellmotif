@@ -7,9 +7,12 @@ public class EnemyAI : MonoBehaviour
 	private bool isPlayingSound = false;
 	public GameObject m_target;
 	public float m_speed = 5;
+	public Sprite highlighted;
+	public Sprite normal;
+	private SpriteRenderer Srenderer;
 
 	IEnumerator playSound ()
-	{
+	{	
 		isPlayingSound = true;
 		yield return new WaitForSeconds (3f);
 		isPlayingSound = false;
@@ -17,16 +20,28 @@ public class EnemyAI : MonoBehaviour
 		Debug.Log ("Play Sound");
 	}
 
+	/*IEnumerator pulse(){
+		if (Srenderer.sprite == normal) {
+						Srenderer.sprite = highlighted;
+				}
+		else {
+						Srenderer.sprite = normal;
+				}
+
+		}*/
+
 	// Use this for initialization
 	void Start ()
 	{
+		Srenderer = GetComponent<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		if (!isPlayingSound) {
-			StartCoroutine (playSound ());
+			StartCoroutine (playSound());
+			//StartCoroutine (pulse());
 		}
 		moveToTarget ();
 	}
