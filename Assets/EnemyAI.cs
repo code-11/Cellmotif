@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
 	public Sprite highlighted;
 	public Sprite normal;
 	private SpriteRenderer Srenderer;
+	Animator anim;
 
 	public float m_growFactor = 1.5f;
 
@@ -39,14 +40,22 @@ public class EnemyAI : MonoBehaviour
 
 	}
 
+	IEnumerator eat()
+	{
+		anim.SetBool ("isEating", true);
+		yield return new WaitForSeconds(6f);
+		anim.SetBool ("isEating", false);
+		Debug.Log ("Finish eating");
+	}
+
 	void OnCollisionEnter2D(Collision2D hit){
-		EnemyAI prey = hit.gameObject.GetComponent<EnemyAI> ();
+
+		EnemyAI prey = hit.gameObject.GetComponent<EnemyAI>();
 		ObjectSize enemy_size = gameObject.GetComponent<ObjectSize> ();
-		
+	
 		if (prey.GetComponent<ObjectSize>().size < enemy_size.size) {
+			StartCoroutine(eat());
 			Debug.Log ("Hit");
-			Destroy (prey.m_target);
-			Destroy (hit.gameObject);
 			
 			gameObject.transform.localScale = gameObject.transform.localScale * m_growFactor;
 			enemy_size.setSize (enemy_size.size * m_growFactor);
@@ -62,6 +71,7 @@ public class EnemyAI : MonoBehaviour
 	void Start ()
 	{
 		Srenderer = GetComponent<SpriteRenderer> ();
+		anim = gameObject.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -75,6 +85,7 @@ public class EnemyAI : MonoBehaviour
 		}
 		moveToTarget ();
 	}
+
 	void moveToTarget ()
 	{
 		Vector2 dif = m_target.transform.position - transform.position;

@@ -29,11 +29,18 @@ public class absorbController : MonoBehaviour {
 
 	}
 
+	IEnumerator die()
+	{
+		yield return new WaitForSeconds(8f);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (this.GetComponent<ObjectSize> ().size < .5) {
+			StartCoroutine(die());
 			Destroy (gameObject);
-				}
-
+		}
 	}
+	
+
 }
